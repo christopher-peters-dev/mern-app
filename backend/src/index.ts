@@ -4,6 +4,7 @@ import cors from "cors";
 import type { Request, Response } from "express";
 import mongoose from "mongoose";
 import userRoutes from "./routes/users.js";
+import authRoutes from "./routes/auth.js";
 import logger from "./utils/logger.js";
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
 app.get("/", (_req: Request, res: Response) => {
