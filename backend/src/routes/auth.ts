@@ -8,7 +8,7 @@ const router = Router();
 router.post(
   "/login",
   [
-    check("email", "Email is required").isString(),
+    check("email", "Email is required").isEmail().normalizeEmail(),
     check("password", "Password with 6 or more characters required").isLength({
       min: 6,
     }),
@@ -16,14 +16,14 @@ router.post(
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      logger.error(JSON.stringify(errors));
+      logger.error({ errors: errors.array() }, "Validation failed for /login");
       return res.status(401).json({ message: errors.array() });
     }
 
     const { email, password } = req.body;
     try {
     } catch (error) {
-      logger.error(JSON.stringify(error));
+      logger.error({ error }, "Internal Server error");
       return res.status(500).send("Internal Server Error");
     }
   }
