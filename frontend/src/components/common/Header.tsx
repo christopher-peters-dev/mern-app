@@ -7,7 +7,7 @@ const Header = () => {
         <h1 className="text-3xl text-white font-bold tracking-tight">
           <Link to="/">MernHolidays.com</Link>
         </h1>
-        <ActionButton name="signup" />
+        <ActionButton name="signin" />
       </div>
     </div>
   );
