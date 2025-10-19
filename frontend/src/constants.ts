@@ -7,6 +7,5 @@ export const buttonConfig: ButtonConfig = {
   createAccount: {
     label: "Create Account",
     icon: Plus,
-    actionUrl: "/signin",
   },
 };
