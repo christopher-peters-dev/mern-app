@@ -72,7 +72,7 @@ const Register = () => {
                   <FieldLabel htmlFor="email">Email</FieldLabel>
                   <Input
                     {...field}
-                    type="email"
+                    type="text"
                     aria-invalid={fieldState.invalid}
                     placeholder="enter email"
                   />
