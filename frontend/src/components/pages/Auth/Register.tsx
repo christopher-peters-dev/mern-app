@@ -1,12 +1,26 @@
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import InputField from "@/components/common/Form/InputField";
 import ActionButton from "@/components/common/Interactive/ActionButton";
 import { Link } from "react-router";
-import type { RegisterInput } from "@/schemas/register.schema";
+import { registerSchema, type RegisterInput } from "@/schemas/register.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Register = () => {
-  const { register, handleSubmit } = useForm<RegisterInput>();
-  const onSubmit = (data: RegisterInput) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterInput>({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    resolver: zodResolver(registerSchema),
+  });
+  const onSubmit: SubmitHandler<RegisterInput> = (data) => {
     console.log("form submitted", data);
   };
   return (
@@ -19,11 +33,14 @@ const Register = () => {
               fieldType="text"
               fieldTitle="First Name"
               {...register("firstName")}
+              errors={errors}
             />
+
             <InputField
               fieldType="text"
               fieldTitle="Last Name"
               {...register("lastName")}
+              errors={errors}
             />
           </div>
           <div className="flex">
@@ -31,6 +48,7 @@ const Register = () => {
               fieldType="email"
               fieldTitle="Email"
               {...register("email")}
+              errors={errors}
             />
           </div>
           <div className="flex">
@@ -38,6 +56,7 @@ const Register = () => {
               fieldType="password"
               fieldTitle="Password"
               {...register("password")}
+              errors={errors}
             />
           </div>
           <div className="flex">
@@ -45,6 +64,7 @@ const Register = () => {
               fieldType="password"
               fieldTitle="Confirm Password"
               {...register("confirmPassword")}
+              errors={errors}
             />
           </div>
           <div className="flex justify-between mt-5">
